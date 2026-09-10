@@ -1,8 +1,105 @@
+```gitignore
+# Dependencies
 node_modules/
-build/
-dist/
+.pnp/
+.pnp.js
+
+# Testing
 coverage/
-.DS_Store
+.nyc_output/
+.coverage
+
+# Logs
 *.log
-.env*
-!.env.example
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Runtime data
+.pnpm-debug.log
+.DS_Store
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+.env.*
+
+# IDE
+.vscode/
+.idea/
+
+# Build outputs
+dist/
+build/
+.next/
+out/
+.nuxt/
+output/
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+venv/
+env/
+.venv/
+pyvenv.cfg
+pip-log.txt
+pip-delete-this-directory.txt
+*.pot
+*.po
+*~
+.pytest_cache/
+.mypy_cache/
+.coverage
+htmlcov/
+.tox/
+
+# Node.js
+node_modules/
+npm-debug.log
+yarn-debug.log
+yarn-error.log
+lerna-debug.log
+.yarn-integrity
+node/
+persistent-cache/
+.npm
+.npmrc
+package-lock.json
+yarn.lock
+.yarn/
+.pnp.js
+.pnp.loader.mjs
+
+# TypeScript
+*.tsbuildinfo
+next-env.d.ts
+
+# Temporary files
+*.tmp
+*.temp
+*.bak
+*.swp
+*.swo
+
+# OS generated files
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+Icon?
+```
+
+Wait, let me reconsider the input. The modified files are only `server.ts` and `src/components/SearchWidget.tsx`, which are source code files. Let me check if there are any artifacts that should be ignored...
+
+Actually, looking at the file changes again, there are no build artifacts, dependency directories, or temporary files in the changes. The changes are only TypeScript/TSX source files, so according to rule #6, I should output an empty .gitignore.
+
+```gitignore
+
+```

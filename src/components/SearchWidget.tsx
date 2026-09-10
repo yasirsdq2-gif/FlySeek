@@ -253,13 +253,15 @@ export default function SearchWidget({ onSearch, isLoading }: SearchWidgetProps)
                     className="px-4 py-3 hover:bg-white/5 cursor-pointer flex items-center gap-4 border-b border-white/5 last:border-0 transition-colors"
                     onClick={() => {
                       setOriginCode(apt.iata || apt.icao);
-                      setOriginSearch(apt.city || apt.airport);
+                      // Display city name prominently, with airport as secondary info
+                      const displayCity = apt.city.replace(/Intl|International/gi, '').trim();
+                      setOriginSearch(displayCity);
                       setIsOriginOpen(false);
                     }}
                   >
                     <span className="material-symbols-outlined text-outline-variant text-xl">flight</span>
                     <div className="flex flex-col text-left">
-                      <div className="font-bold text-on-surface text-sm">{apt.city || apt.airport} <span className="font-normal text-outline-variant ml-1">{apt.iata || apt.icao}</span></div>
+                      <div className="font-bold text-on-surface text-sm">{apt.city.replace(/Intl|International/gi, '').trim()} <span className="font-normal text-outline-variant ml-1">{apt.iata || apt.icao}</span></div>
                       <div className="text-xs text-outline">{apt.airport}, {apt.country}</div>
                     </div>
                   </div>
@@ -309,13 +311,15 @@ export default function SearchWidget({ onSearch, isLoading }: SearchWidgetProps)
                     className="px-4 py-3 hover:bg-white/5 cursor-pointer flex items-center gap-4 border-b border-white/5 last:border-0 transition-colors"
                     onClick={() => {
                       setDestCode(apt.iata || apt.icao);
-                      setDestSearch(apt.city || apt.airport);
+                      // Display city name prominently, with airport as secondary info
+                      const displayCity = apt.city.replace(/Intl|International/gi, '').trim();
+                      setDestSearch(displayCity);
                       setIsDestOpen(false);
                     }}
                   >
                     <span className="material-symbols-outlined text-outline-variant text-xl">flight</span>
                     <div className="flex flex-col text-left">
-                      <div className="font-bold text-on-surface text-sm">{apt.city || apt.airport} <span className="font-normal text-outline-variant ml-1">{apt.iata || apt.icao}</span></div>
+                      <div className="font-bold text-on-surface text-sm">{apt.city.replace(/Intl|International/gi, '').trim()} <span className="font-normal text-outline-variant ml-1">{apt.iata || apt.icao}</span></div>
                       <div className="text-xs text-outline">{apt.airport}, {apt.country}</div>
                     </div>
                   </div>
