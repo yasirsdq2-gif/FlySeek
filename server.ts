@@ -9,7 +9,7 @@ dotenv.config();
 
 async function startServer() {
   const app = express();
-  const PORT = 3000;
+  const PORT = Number(process.env.PORT) || 3001;
 
   app.use(express.json());
 
@@ -22,9 +22,26 @@ async function startServer() {
       }
       const suggestions = await airportData.getAutocompleteSuggestions(q);
       
-      const mapped = suggestions.map(apt => {
+      // Sort by importance: large_airport first, then medium_airport, then small_airport
+      // Also filter out non-scheduled services for better UX
+      const sorted = suggestions.sort((a, b) => {
+        const typeOrder = { 'large_airport': 0, 'medium_airport': 1, 'small_airport': 2, 'seaplane_base': 3 };
+        const aType = typeOrder[a.type as keyof typeof typeOrder] ?? 4;
+        const bType = typeOrder[b.type as keyof typeof typeOrder] ?? 4;
+        
+        // Prioritize scheduled service
+        const aScheduled = a.scheduled_service === 'TRUE' ? 0 : 1;
+        const bScheduled = b.scheduled_service === 'TRUE' ? 0 : 1;
+        
+        return aScheduled - bScheduled || aType - bType;
+      }).slice(0, 15); // Limit to top 15 results
+      
+      const mapped = sorted.map(apt => {
         // compute a clean city/display name
         let cleanName = apt.airport.replace(/\s*(International|Regional|Municipal|City|County)?\s*(Airport|Airfield|Heliport).*/i, '').trim();
+        // If the clean name still contains "Intl" or similar, clean it up
+        cleanName = cleanName.replace(/Intl|International/gi, '').trim();
+        
         return {
           ...apt,
           city: cleanName
